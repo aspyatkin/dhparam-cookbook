@@ -3,7 +3,7 @@ Chef cookbook to create dhparam files for [nginx](http://nginx.org/) web server.
 
 ## Attributes
 
-`node['dhparam']['default_key_size']` -- This attribute is used in `dhparam::default_key` recipe so as to create a default key. By default, this value is `nil` (no default key is to be created).
+`node['dhparam']['default_key_size']` - This attribute is used in `dhparam::default_key` recipe so as to create a default key. By default, this value is `nil` (no default key is to be created).
 
 ## Recipes
 
