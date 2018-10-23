@@ -18,7 +18,7 @@ action :create do
   key_size = new_resource.key_size.to_i
   key_file = helper.key_file(key_size)
 
-  execute "openssl dhparam #{key_size} -out #{key_file}" do
+  execute "openssl dhparam -out #{key_file} #{key_size}" do
     user 'root'
     group node['root_group']
     creates key_file
