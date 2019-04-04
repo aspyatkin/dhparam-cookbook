@@ -2,9 +2,9 @@ name 'dhparam'
 maintainer 'Alexander Pyatkin'
 maintainer_email 'aspyatkin@gmail.com'
 license 'MIT'
-description 'Create dhparam files'
+description 'Create DH parameters files'
 long_description ::IO.read(::File.join(::File.dirname(__FILE__), 'README.md'))
-version '1.0.1'
+version '2.0.0'
 
 scm_url = 'https://github.com/aspyatkin/dhparam-cookbook'
 source_url scm_url if respond_to?(:source_url)

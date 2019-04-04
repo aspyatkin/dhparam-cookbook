@@ -1,24 +1,15 @@
 # dhparam-cookbook
-Chef cookbook to create dhparam files for [nginx](http://nginx.org/) web server.
-
-## Attributes
-
-`node['dhparam']['default_key_size']` - This attribute is used in `dhparam::default_key` recipe so as to create a default key. By default, this value is `nil` (no default key is to be created).
-
-## Recipes
-
-### dhparam::default_key
-
-Create a default key of size specified in `node['dhparam']['default_key_size']` attribute.
+Chef cookbook to create DH parameters files.
 
 ## Resources
 
-### dhparam_key
+### dhparam_file
 
-Create a key of specific size.
+Create a DH parameters file with the specified key length.
 
 ``` ruby
-dhparam_key '2048' do
+dhparam_file 'default' do
+  key_length 2048
   action :create
 end
 ```
@@ -26,13 +17,8 @@ end
 ## Helpers
 
 ``` ruby
-dhparam = ::ChefCookbook::DHParam.new(node)
-
-dhparam.key_file(2048)  # Get path to the 2048-bit dhparam file
-
-dhparam.default_key_size  # Get the default key size, if specified by the corresponding attribute
-dhparam.default_key?  # Whether or not the default key size is specified
-dhparam.default_key_file  # Get path to the default key file
+# Get a full path to a specific DH parameters file
+::ChefCookbook::DHParam.file(node, 'default')  # /etc/chef-dhparam/2048.pem
 ```
 
 ## License

@@ -1,28 +1,30 @@
+class Chef
+  class Exceptions
+    class DHParamFileNotFoundError < RuntimeError
+    end
+  end
+end
+
 module ChefCookbook
-  class DHParam
-    def initialize(node)
-      @id = 'dhparam'
-      @node = node
+  module DHParam
+    def self.init(node)
+      unless node.run_state.key?('dhparam')
+        node.run_state['dhparam'] = {}
+      end
     end
 
-    def base_dir
-      @node[@id]['base_dir']
+    def self.add(node, name, path)
+      init(node)
+      node.run_state['dhparam'][name] = path
     end
 
-    def key_file(key_size)
-      ::File.join(base_dir, "dhparam_#{key_size}")
-    end
-
-    def default_key_size
-      @node[@id].fetch('default_key_size', nil)
-    end
-
-    def default_key?
-      not default_key_size.nil?
-    end
-
-    def default_key_file
-      default_key? ? key_file(default_key_size) : nil
+    def self.file(node, name)
+      init(node)
+      unless node.run_state['dhparam'].key?(name)
+        raise ::Chef::Exceptions::DHParamFileNotFoundError,
+              "A dhparam file not found by the name '#{name}'!"
+      end
+      node.run_state['dhparam'][name]
     end
   end
 end
