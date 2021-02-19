@@ -1,4 +1,5 @@
 resource_name :dhparam_file
+provides :dhparam_file
 
 property :key_length, Integer, default: 2048
 property :path, String, default: '/etc/chef-dhparam'
@@ -7,7 +8,7 @@ default_action :create
 
 action :create do
   directory new_resource.path do
-    mode 0o700
+    mode '0700'
     recursive true
     action :create
   end
